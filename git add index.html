@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>神アニメ 10大ソース完全網羅集計ランキング</title>
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+    <style>
+        /* CSS：サイト全体を黒で統一 */
+        body { 
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            margin: 20px; 
+            background-color: #000000; /* サイト全体を黒に設定 */
+            color: #ffffff;            /* 全体の文字色を白に */
+        }
+
+        #download-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 12px 24px;
+            background-color: #c0392b; /* ボタンも濃い赤で統一 */
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        #download-btn:hover { background-color: #e74c3c; }
+
+        .info { 
+            font-size: 11px; 
+            color: #bdc3c7; 
+            margin-top: 20px; 
+            line-height: 1.6; 
+            background: rgba(255, 255, 255, 0.05); /* 黒背景に馴染む薄いグレー */
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #333;
+        }
+
+        #graph {
+            background-color: #000000;
+            border-radius: 15px;
+            padding: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="download-btn">グラフを画像として保存（note投稿用）</button>
+    
+    <div id="graph" style="width:100%;height:5000px;"></div>
+
+    <script>
+        const data = [
+            { y: "進撃の巨人", x: 10 }, { y: "呪術廻戦", x: 9 }, { y: "STEINS;GATE", x: 9 },
+            { y: "葬送のフリーレン", x: 8 }, { y: "ヴァイオレット・エヴァーガーデン", x: 8 },
+            { y: "僕のヒーローアカデミア", x: 7 }, { y: "Fateシリーズ", x: 7 }, { y: "鬼滅の刃", x: 7 },
+            { y: "コードギアス 反逆のルルーシュ", x: 6 }, { y: "PSYCHO-PASS サイコパス", x: 6 },
+            { y: "銀魂", x: 6 }, { y: "日常", x: 6 }, { y: "ゆるキャン△", x: 6 }, { y: "けいおん！", x: 6 },
+            { y: "鋼の錬金術師 FA", x: 5 }, { y: "Re:ゼロから始める異世界生活", x: 5 },
+            { y: "ハイキュー!!", x: 5 }, { y: "とらドラ！", x: 5 }, { y: "魔法少女まどか☆マギカ", x: 5 },
+            { y: "新世紀エヴァンゲリオン", x: 5 }, { y: "転生したらスライムだった件", x: 5 },
+            { y: "ソードアート・オンライン", x: 5 }, { y: "涼宮ハルヒの憂鬱", x: 5 },
+            { y: "四月は君の嘘", x: 4 }, { y: "あの日見た花の名前を僕達はまだ知らない。", x: 4 },
+            { y: "らき☆すた", x: 4 }, { y: "無職転生", x: 4 }, { y: "かぐや様は告らせたい", x: 4 },
+            { y: "SPY×FAMILY", x: 3 }, { y: "ブルーロック", x: 3 }, { y: "推しの子", x: 3 },
+            { y: "Vinland Saga", x: 3 }, { y: "宇宙よりも遠い場所", x: 3 }, { y: "氷菓", x: 3 },
+            { y: "CLANNAD", x: 3 }, { y: "Angel Beats!", x: 3 }, { y: "キングダム", x: 3 },
+            { y: "サマータイムレンダ", x: 3 }, { y: "名探偵コナン", x: 3 }, { y: "DEATH NOTE", x: 3 },
+            { y: "文豪ストレイドッグス", x: 2 }, { y: "Dr.STONE", x: 2 }, { y: "メイドインアビス", x: 2 },
+            { y: "オーバーロード", x: 2 }, { y: "この素晴らしい世界に祝福を！", x: 2 },
+            { y: "ぼっち・ざ・ろっく！", x: 2 }, { y: "おそ松さん", x: 2 }, { y: "ひぐらしのなく頃に", x: 2 },
+            { y: "カウボーイビバップ", x: 2 }, { y: "東京リベンジャーズ", x: 2 },
+            { y: "斉木楠雄のΨ難", x: 2 }, { y: "甲鉄城のカバネリ", x: 2 }, { y: "東のエデン", x: 2 },
+            { y: "ワンピース", x: 2 }, { y: "ドラゴンボール", x: 2 }, { y: "スラムダンク", x: 2 },
+            { y: "僕だけがいない街", x: 2 }, { y: "ジョジョの奇妙な冒険", x: 2 },
+            { y: "攻殻機動隊 S.A.C.", x: 2 }, { y: "天元突破グレンラガン", x: 2 },
+            { y: "ワールドトリガー", x: 2 }, { y: "五等分の花嫁", x: 2 }, { y: "ゾンビランドサガ", x: 2 },
+            { y: "Vivy -Fluorite Eye's Song-", x: 2 }, { y: "化物語シリーズ", x: 2 },
+            { y: "ご注文はうさぎですか？", x: 2 }, { y: "BANANA FISH", x: 2 },
+            { y: "最果てのパラディン", x: 1 }, { y: "美少年探偵団", x: 1 }, { y: "蒼穹のファフナー", x: 1 },
+            { y: "見える子ちゃん", x: 1 }, { y: "PUI PUI モルカー", x: 1 }, { y: "SK∞ エスケーエイト", x: 1 },
+            { y: "アイドリッシュセブン", x: 1 }, { y: "吸血鬼すぐ死ぬ", x: 1 }, { y: "ヴィジュアルプリズン", x: 1 },
+            { y: "ウマ娘", x: 1 }, { y: "天官賜福", x: 1 }, { y: "ダーウィンズゲーム", x: 1 },
+            { y: "ダンまち", x: 1 }, { y: "とんでもスキルで異世界放浪メシ", x: 1 },
+            { y: "電脳コイル", x: 1 }, { y: "チ。-地球の運動について-", x: 1 }, { y: "GNOSIA", x: 1 },
+            { y: "銀河特急 ミルキー☆サブウェイ", x: 1 }, { y: "陰の実力者になりたくて！", x: 1 },
+            { y: "デキる猫は今日も憂鬱", x: 1 }, { y: "ホリミヤ", x: 1 }, { y: "その着せ替え人形は恋をする", x: 1 },
+            { y: "僕の心のヤバイやつ", x: 1 }, { y: "青のオーケストラ", x: 1 }, { y: "忘却バッテリー", x: 1 },
+            { y: "黒子のバスケ", x: 1 }, { y: "ギルティクラウン", x: 1 }, { y: "Charlotte", x: 1 },
+            { y: "グリザイアの果実", x: 1 }, { y: "魔法科高校の劣等生", x: 1 }, { y: "グランクレスト戦記", x: 1 },
+            { y: "さくら荘のペットな彼女", x: 1 }, { y: "Air", x: 1 }, { y: "新世界より", x: 1 },
+            { y: "銀河英雄伝説 DNT", x: 1 }, { y: "バビロン", x: 1 }, { y: "イヴの時間", x: 1 },
+            { y: "狼と香辛料", x: 1 }, { y: "学園黙示録 HOTD", x: 1 }, { y: "ef - a tale of memories.", x: 1 },
+            { y: "アルドノア・ゼロ", x: 1 }, { y: "イエスタデイをうたって", x: 1 }, { y: "デカダンス", x: 1 },
+            { y: "彼方のアストラ", x: 1 }, { y: "灰と幻想のグリムガル", x: 1 }, { y: "慎重勇者", x: 1 },
+            { y: "「C」", x: 1 }, { y: "91Days", x: 1 }, { y: "月がきれい", x: 1 },
+            { y: "青春ブタ野郎", x: 1 }, { y: "凪のあすから", x: 1 }, { y: "Pluto", x: 1 },
+            { y: "Grand Blue", x: 1 }, { y: "光が死んだ夏", x: 1 }, { y: "ダンダダン", x: 1 },
+            { y: "怪獣8号", x: 1 }, { y: "野原ひろし 昼メシの流儀", x: 1 }, { y: "ひなこのーと", x: 1 },
+            { y: "NEW GAME!", x: 1 }, { y: "放課後ていぼう日誌", x: 1 }, { y: "瑠璃の宝石", x: 1 },
+            { y: "日々は過ぎれど飯うまし", x: 1 }, { y: "mono", x: 1 }, { y: "蟲師", x: 1 },
+            { y: "灰羽連盟", x: 1 }, { y: "英國戀物語エマ", x: 1 }
+        ].sort((a, b) => a.x - b.x);
+
+        const trace = {
+            type: 'bar', x: data.map(d => d.x), y: data.map(d => d.y), orientation: 'h',
+            marker: { color: data.map(d => d.x >= 8 ? '#c0392b' : (d.x >= 4 ? '#e74c3c' : '#fab1a0')) }
+        };
+        const layout = {
+            title: { text: '神アニメ 10大ソース完全網羅集計 (Dark Mode)', font: { color: '#ffffff' } },
+            plot_bgcolor: '#000000', paper_bgcolor: '#000000',
+            xaxis: { title: 'ソース数', dtick: 1, gridcolor: '#333333', tickfont: { color: '#ffffff' }, font: { color: '#ffffff' }, side: 'top' },
+            yaxis: { automargin: true, tickfont: { color: '#ffffff' } },
+            margin: { l: 250, r: 50, t: 100, b: 50 }
+        };
+        Plotly.newPlot('graph', [trace], layout, { responsive: true, displayModeBar: false });
+
+        document.getElementById('download-btn').addEventListener('click', function() {
+            Plotly.downloadImage('graph', { format: 'png', width: 1200, height: 5000, filename: 'anime_dark_all_ranking' });
+        });
+    </script>
+    <div class="info">ソース：みんなのランキング / ciatr / アニメイトタイムズ / ファニムビ / オモコロブロス / ユーウォッチ / Amebaチョイス / Reddit / note / eeo Media</div>
+</body>
+</html>
