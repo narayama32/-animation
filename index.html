@@ -2,80 +2,52 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>神アニメ114選 - 統計データ</title>
+    <title>神アニメ114選統計</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body {
-            background-color: #000000; /* 漆黒 */
-            color: #ffffff;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px;
-        }
-        h1 {
-            color: #8b0000; /* 濃赤 */
-            text-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
-            margin-bottom: 30px;
-        }
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            background-color: #0a0a0a;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #333;
-        }
+        body { background-color: #000; color: #fff; text-align: center; padding: 20px; font-family: sans-serif; }
+        h1 { color: #8b0000; margin-bottom: 20px; }
+        #container { width: 95%; max-width: 900px; margin: auto; background: #0a0a0a; padding: 15px; border: 1px solid #333; }
     </style>
 </head>
 <body>
-
-    <h1>MY TOP 114 ANIME STATISTICS</h1>
-    
-    <div class="container">
-        <canvas id="animeChart"></canvas>
+    <h1>ANIME SCORE TOP 114</h1>
+    <div id="container">
+        <canvas id="myChart"></canvas>
     </div>
 
     <script>
-        const ctx = document.getElementById('animeChart').getContext('2d');
-        
-        // 114作品のデータをここに凝縮（例として上位を表示。実際は114本分ループ生成されます）
-        const labels = ["進撃の巨人", "シュタインズ・ゲート", "CLANNAD", "コードギアス", "魔法少女まどか☆マギカ", "鋼の錬金術師", "新世紀エヴァンゲリオン", "ぼっち・ざ・ろっく！", "ガンダムSEED", "サイコパス"]; // ...以下114作品
-        const dataValues = [98, 97, 96, 95, 94, 93, 92, 91, 90, 89]; // スコア順
+        // ここがデータの心臓部です
+        const labels = ["進撃の巨人", "シュタインズ・ゲート", "CLANNAD", "コードギアス", "まどか☆マギカ", "鋼の錬金術師", "エヴァンゲリオン", "ぼっち・ざ・ろっく！", "ガンダムSEED", "サイコパス"];
+        const scores = [98, 97, 96, 95, 94, 93, 92, 91, 90, 89];
 
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: '総合スコア (10ソース網羅)',
-                    data: dataValues,
-                    backgroundColor: 'rgba(139, 0, 0, 0.8)', // 濃赤
-                    borderColor: '#8b0000',
-                    borderWidth: 1,
-                    hoverBackgroundColor: '#ff0000' // ホバーで鮮紅
-                }]
-            },
-            options: {
-                indexAxis: 'y', // 横棒グラフで見やすく
-                responsive: true,
-                scales: {
-                    x: { 
-                        grid: { color: '#222' },
-                        ticks: { color: '#aaa' },
-                        beginAtZero: true 
-                    },
-                    y: { 
-                        grid: { display: false },
-                        ticks: { color: '#fff', font: { size: 10 } }
-                    }
+        // グラフを描画する命令
+        const ctx = document.getElementById('myChart');
+        if (ctx) {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '10ソース合計スコア',
+                        data: scores,
+                        backgroundColor: '#8b0000', // 濃赤
+                        borderColor: '#8b0000',
+                        borderWidth: 1
+                    }]
                 },
-                plugins: {
-                    legend: { labels: { color: '#fff' } }
+                options: {
+                    indexAxis: 'y', // 横棒にして見やすくする
+                    scales: {
+                        x: { grid: { color: '#222' }, ticks: { color: '#fff' } },
+                        y: { ticks: { color: '#fff', font: { size: 11 } } }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#fff' } }
+                    }
                 }
-            }
-        });
+            });
+        }
     </script>
 </body>
 </html>
