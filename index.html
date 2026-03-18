@@ -1,63 +1,15 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>神アニメ114選 - 究極の統計データ</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body { background-color: #000; color: #fff; font-family: sans-serif; padding: 20px; }
-        h1 { color: #8b0000; text-align: center; font-size: 28px; text-shadow: 0 0 15px rgba(139,0,0,0.6); }
-        .chart-container { position: relative; height: 3000px; width: 95%; max-width: 1000px; margin: auto; background: #0a0a0a; border: 1px solid #333; padding: 10px; }
-    </style>
-</head>
-<body>
+<body> 愚者は経験に学び、賢者は歴史に学ぶ。
 
-    <h1>TOP 114 ANIME SCIENTIFIC RANKING</h1>
-    <p style="text-align: center; color: #666;">10のデータソースを統合した独自スコア</p>
+    <div class="container">
+        <h1>ここに大見出し（タイトル）</h1>
+        
+        <p>文豪の名言。</p>
+        
+        <p>
+            アニメ作品の価値は？　worth of animation        </p>
 
-    <div class="chart-container">
-        <canvas id="animeChart"></canvas>
+        <h2>予想は裏切っても、予期は裏切らない本。</h2>
+        <p>読書猿の言語センスはすごい！</p>
     </div>
 
-    <script>
-        const ctx = document.getElementById('animeChart').getContext('2d');
-        
-        // 【ここを書き換えるだけ！】114作品のデータを流し込みます
-        const animeData = [
-            { name: "進撃の巨人", score: 98.5 },
-            { name: "シュタインズ・ゲート", score: 97.8 },
-            { name: "CLANNAD", score: 96.5 },
-            { name: "コードギアス", score: 95.9 },
-            { name: "まどか☆マギカ", score: 94.2 },
-            // --- ここに残り109作品を同じ形式で追加するだけです ---
-            { name: "114番目の作品", score: 65.0 }
-        ];
-
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: animeData.map(d => d.name),
-                datasets: [{
-                    label: '統合スコア',
-                    data: animeData.map(d => d.score),
-                    backgroundColor: '#8b0000',
-                    borderColor: '#8b0000',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                maintainAspectRatio: false, // 114本並べるために縦長に固定
-                responsive: true,
-                scales: {
-                    x: { grid: { color: '#222' }, ticks: { color: '#fff' }, beginAtZero: true, max: 100 },
-                    y: { ticks: { color: '#fff', font: { size: 12 } } }
-                },
-                plugins: {
-                    legend: { display: false }
-                }
-            }
-        });
-    </script>
 </body>
-</html>
